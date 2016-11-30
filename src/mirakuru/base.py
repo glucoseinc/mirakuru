@@ -253,7 +253,8 @@ class SimpleExecutor(object):
         if sig is None:
             sig = self._sig_stop
 
-        os.killpg(self.process.pid, sig)
+        if self.running():
+            os.killpg(self.process.pid, sig)
 
         def process_stopped():
             """Return True only only when self.process is not running."""
